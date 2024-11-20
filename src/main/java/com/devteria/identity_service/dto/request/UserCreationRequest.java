@@ -1,9 +1,22 @@
 package com.devteria.identity_service.dto.request;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class UserCreationRequest {
+
+    @Size(min = 3, message = "Username must be at least 3 character")
     private String username;
+
+    @Size(min = 8, message = "Password must be at least 8 character")
+//    @Email()
+//    @NotBlank()
+//    @NotEmpty()
+//    ...
     private String password;
     private String firstName;
     private String lastName;
