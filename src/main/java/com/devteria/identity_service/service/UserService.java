@@ -9,6 +9,7 @@ import com.devteria.identity_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,7 +20,14 @@ public class UserService {
 
     public User createUser(UserCreationRequest request) {
         User user = new User();
+        UserCreationRequest request1 = UserCreationRequest.builder()
+                .username("")
+                .password("")
+                .firstName("")
+                .lastName("")
+                .build();
 
+        UserCreationRequest request2 = new UserCreationRequest();
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
