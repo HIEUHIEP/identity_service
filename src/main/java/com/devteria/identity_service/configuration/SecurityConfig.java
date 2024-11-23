@@ -45,7 +45,8 @@ public class SecurityConfig {
 
         httpSecurity.oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer ->
                 httpSecurityOAuth2ResourceServerConfigurer.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder()) // .jwkSetUri : dùng khi authen ở 1 server thứ 3, decoder : dùng chinh token đang generate
-                        .jwtAuthenticationConverter(jwtAuthenticationConverter()))  //thay đổi prefix mặt định SCOPE_ thành ROLE_
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter()))  //thay đổi prefix mặt định SCOPE_ thành ROLE_
+                        .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
         );
 
         // Default csrf = enable ( cross site )
