@@ -30,7 +30,7 @@ public class UserController {
     ApiResponse<List<UserResponse>> getUsers() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        
+
         return ApiResponse.<List<UserResponse>>builder()
                 .result(userService.getUsers())
                 .build();
@@ -41,6 +41,14 @@ public class UserController {
     @GetMapping("/{userId}")
     UserResponse getUser(@PathVariable("userId") String userId) {
         return userService.getUser(userId);
+    }
+
+    // Get thông tin User dựa vào token
+    @GetMapping("/myInfo")
+    ApiResponse<UserResponse> getMyInfo() {
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.getMyInfor())
+                .build();
     }
 
     @PutMapping("/{userId}")

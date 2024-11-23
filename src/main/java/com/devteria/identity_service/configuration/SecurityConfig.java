@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -21,6 +22,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final String[] PUBLIC_ENDPOINTS = {
@@ -38,7 +40,7 @@ public class SecurityConfig {
                 authorizationManagerRequestMatcherRegistry
                         .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll() // cho phép access mà ko cần token
 //                        .requestMatchers(HttpMethod.GET, "/users").hasAuthority("ROLE_ADMIN") // phải là SCOPE_ADMIN thì mới get all users, => đổi prefix scope => role
-                        .requestMatchers(HttpMethod.GET, "/users").hasRole(Role.ADMIN.name()) // viết ngắn hơn.
+//                        .requestMatchers(HttpMethod.GET, "/users").hasRole(Role.ADMIN.name()) // viết ngắn hơn. => đây là phân quyền theo end point
                         .anyRequest().authenticated()); // ngược lại, phải authenticated.
 
         httpSecurity.oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer ->
