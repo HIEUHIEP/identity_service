@@ -8,6 +8,7 @@ import com.devteria.identity_service.enums.Role;
 import com.devteria.identity_service.exception.AppException;
 import com.devteria.identity_service.exception.ErrorCode;
 import com.devteria.identity_service.mapper.UserMapper;
+import com.devteria.identity_service.repository.RoleRepository;
 import com.devteria.identity_service.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,7 @@ public class UserService {
 
     //    @Autowired => không nên sử dụng Autowired, thay thế là tạo constructor = RequiredArgsConstructor/AllArgsConstructor/...
     UserRepository userRepository;
+    RoleRepository roleRepository;
 
     //    @Autowired
     UserMapper userMapper;
@@ -55,7 +57,8 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
-    @PreAuthorize("hasRole('ADMIN')") // Kiểm tra trước khi vào method.
+    //    @PreAuthorize("hasRole('ADMIN')") // Kiểm tra trước khi vào method.
+    @PreAuthorize("hasAuthority('APPROVE_POST')")
     public List<UserResponse> getUsers() {
         log.info("In method get users");
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
@@ -82,6 +85,10 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         userMapper.updateUser(user, request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        var roles = roleRepository.findAllById(request.getRoles());
+        user.setRoles(new HashSet<>(roles));
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
