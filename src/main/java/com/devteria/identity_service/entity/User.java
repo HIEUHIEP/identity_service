@@ -1,9 +1,6 @@
 package com.devteria.identity_service.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -25,7 +22,8 @@ public class User {
     String firstName;
     String lastName;
     LocalDate dob;
-    Set<String> roles; // Set thay vì List để có tính duy nhất
+    @ManyToMany // Relationship User <=> Role => Tạo 1 bảng mới chứa key của 2 table.
+    Set<Role> roles; // Set thay vì List để có tính duy nhất
 
 
 }
