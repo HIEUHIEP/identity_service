@@ -1,6 +1,7 @@
 package com.devteria.identity_service.dto.request;
 
 import com.devteria.identity_service.exception.ErrorCode;
+import com.devteria.identity_service.validator.DobContraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -30,6 +31,8 @@ public class UserCreationRequest {
     String password;
     String firstName;
     String lastName;
+
+    @DobContraint(min = 2, message = "DOB_INVALID") // Custom annotation
     LocalDate dob;
 
 }
