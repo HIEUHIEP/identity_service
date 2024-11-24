@@ -33,10 +33,9 @@ public class UserController {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         log.info("Username: {}", authentication.getName());
         return ApiResponse.<List<UserResponse>>builder()
+                .code(1000)
                 .result(userService.getUsers())
                 .build();
-
-
     }
 
     @GetMapping("/{userId}")

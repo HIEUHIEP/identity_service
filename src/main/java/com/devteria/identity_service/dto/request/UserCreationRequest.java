@@ -20,7 +20,7 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE) // field k khai bao access modifier thi default la PRIVATE
 public class UserCreationRequest {
 
-    @Size(min = 3, message = "USERNAME_INVALID")
+    @Size(min = 4, message = "USERNAME_INVALID")
     String username;
 
     @Size(min = 8, message = "PASSWORD_INVALID")
@@ -32,7 +32,7 @@ public class UserCreationRequest {
     String firstName;
     String lastName;
 
-    @DobContraint(min = 2, message = "DOB_INVALID") // Custom annotation
+    @DobContraint(min = 18, message = "DOB_INVALID") // Custom annotation
     LocalDate dob;
 
 }

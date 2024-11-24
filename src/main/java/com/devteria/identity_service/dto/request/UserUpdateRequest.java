@@ -16,7 +16,7 @@ public class UserUpdateRequest {
     String password;
     String firstName;
     String lastName;
-    @DobContraint(min = 2, message = "DOB_INVALID") // Custom annotation
+    @DobContraint(min = 18, message = "DOB_INVALID") // Custom annotation
     LocalDate dob;
     List<String> roles;
 }
