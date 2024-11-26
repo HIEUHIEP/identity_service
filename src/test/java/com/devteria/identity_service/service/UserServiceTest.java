@@ -1,34 +1,30 @@
 package com.devteria.identity_service.service;
 
-import com.devteria.identity_service.dto.request.UserCreationRequest;
-import com.devteria.identity_service.dto.response.UserResponse;
-import com.devteria.identity_service.entity.User;
-import com.devteria.identity_service.exception.AppException;
-import com.devteria.identity_service.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 
-import java.time.LocalDate;
-import java.util.Optional;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import com.devteria.identity_service.dto.request.UserCreationRequest;
+import com.devteria.identity_service.dto.response.UserResponse;
+import com.devteria.identity_service.entity.User;
+import com.devteria.identity_service.exception.AppException;
+import com.devteria.identity_service.repository.UserRepository;
 
 @SpringBootTest
 @TestPropertySource("/test.properties")
-
 public class UserServiceTest {
 
     @Autowired
@@ -43,7 +39,7 @@ public class UserServiceTest {
     private LocalDate dob;
 
     @BeforeEach
-        // Chạy trước mổi lần test.
+    // Chạy trước mổi lần test.
     void initData() {
         dob = LocalDate.of(1990, 1, 1);
         request = UserCreationRequest.builder()
@@ -91,7 +87,8 @@ public class UserServiceTest {
         when(userRepository.existsByUsername(anyString())).thenReturn(true);
 
         // WHEN
-        var exception = assertThrows(AppException.class, () -> userService.createUser(request));  // assertThrows để ném ra loại exception
+        var exception = assertThrows(
+                AppException.class, () -> userService.createUser(request)); // assertThrows để ném ra loại exception
 
         // THEN
         Assertions.assertThat(exception.getErrorCode().getCode()).isEqualTo(1002);
@@ -118,7 +115,8 @@ public class UserServiceTest {
         when(userRepository.findByUsername(any())).thenReturn(Optional.ofNullable(null));
 
         // WHEN
-        var exception = assertThrows(AppException.class, () -> userService.getMyInfor());  // assertThrows để ném ra loại exception
+        var exception = assertThrows(
+                AppException.class, () -> userService.getMyInfor()); // assertThrows để ném ra loại exception
 
         // THEN
         Assertions.assertThat(exception.getErrorCode().getCode()).isEqualTo(1005);

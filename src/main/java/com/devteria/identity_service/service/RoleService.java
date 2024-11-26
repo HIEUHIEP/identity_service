@@ -1,21 +1,20 @@
 package com.devteria.identity_service.service;
 
-import com.devteria.identity_service.dto.request.ApiResponse;
+import java.util.HashSet;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.devteria.identity_service.dto.request.RoleRequest;
 import com.devteria.identity_service.dto.response.RoleResponse;
-import com.devteria.identity_service.entity.Permission;
-import com.devteria.identity_service.entity.Role;
 import com.devteria.identity_service.mapper.RoleMapper;
 import com.devteria.identity_service.repository.PermissionRepository;
 import com.devteria.identity_service.repository.RoleRepository;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,11 +32,12 @@ public class RoleService {
         role = roleRepository.save(role);
 
         return roleMapper.toRoleResponse(role);
-
     }
 
     public List<RoleResponse> getAll() {
-        return roleRepository.findAll().stream().map((roleMapper::toRoleResponse)).toList();
+        return roleRepository.findAll().stream()
+                .map((roleMapper::toRoleResponse))
+                .toList();
     }
 
     public void delete(String role) {

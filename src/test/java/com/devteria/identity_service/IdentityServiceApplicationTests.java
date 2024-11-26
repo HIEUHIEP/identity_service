@@ -1,14 +1,15 @@
 package com.devteria.identity_service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import jakarta.xml.bind.DatatypeConverter;
-import lombok.extern.slf4j.Slf4j;
+
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 class IdentityServiceApplicationTests {
@@ -36,5 +37,4 @@ class IdentityServiceApplicationTests {
         log.info("BCrypt round 1: {}", passwordEncoder.encode(password));
         log.info("BCrypt round 2: {}", passwordEncoder.encode(password));
     }
-
 }
