@@ -15,9 +15,11 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -93,5 +95,33 @@ public class UserServiceTest {
 
         // THEN
         Assertions.assertThat(exception.getErrorCode().getCode()).isEqualTo(1002);
+    }
+
+    @Test
+    @WithMockUser(username = "username")
+    void getMyInfo_valid_success() {
+        // GIVEN
+        when(userRepository.findByUsername(any())).thenReturn(Optional.of((user)));
+
+        // WHEN
+        var res = userService.getMyInfor();
+
+        // THEN
+        Assertions.assertThat(res.getUsername()).isEqualTo("username");
+        Assertions.assertThat(res.getId()).isEqualTo("123123123");
+    }
+
+    @Test
+    @WithMockUser(username = "username")
+    void getMyInfo_userNotFound_fail() {
+        // GIVEN
+        when(userRepository.findByUsername(any())).thenReturn(Optional.ofNullable(null));
+
+        // WHEN
+        var exception = assertThrows(AppException.class, () -> userService.getMyInfor());  // assertThrows để ném ra loại exception
+
+        // THEN
+        Assertions.assertThat(exception.getErrorCode().getCode()).isEqualTo(1005);
+        Assertions.assertThat(exception.getErrorCode().getMessage()).isEqualTo("User not existed");
     }
 }
