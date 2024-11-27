@@ -1,0 +1,19 @@
+jwt:
+  signerKey: "sYHn3DyfBOpqRv4eJw970DsDPCotbp+RzFtvs/q7Wopz6RDBa/Oa6DfvoYhjcI5S"
+  valid-duration: 24 # in hours
+  refreshable-duration: 72 # in hours
+
+#  How to use this file in Local?
+#  Click edit in button start of IDE
+#  Click Modify options -> Add VM options
+#  input: -Dspring.profiles.active=prod ( prod là đuôi file application.yaml )
+
+#  Biến môi trường được truyền vào : không cần setting ở application.yaml
+#  Click edit in button start of IDE
+#  Click Environment variable
+#  Name: JWT_SIGNERKEY
+#  Value: sYHn3DyfBOpqRv4eJw970DsDPCotbp+RzFtvs/q7Wopz6RDBa/Oa6DfvoYhjcI5S
+#  Replace dots (.) with underscoré (_)
+#  Remove dashes (-)
+#  Convert to uppercase
+#  ==>> Name có thể là biến : ${JWT_SIGNERKEY} thì sẽ replace vào biến trong file application.yaml
