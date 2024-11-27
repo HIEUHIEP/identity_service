@@ -1,5 +1,6 @@
 #DI (dependency injection): Tiêm sự phụ thuộc.
 Nó là new đối tượng. Nhưng là được truyền từ bên ngoài chứ không new trực tiếp.
+Cách truyền thì có thể là Setter, Constructor...
 
 #IoC (inversion of control) : Đảo ngược sự kiểm soát.
 Các đối tượng sẽ không được quản lý bởi Application nữa. Thay vào đó là Spring IoC container.
