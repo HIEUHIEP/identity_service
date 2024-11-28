@@ -14,6 +14,10 @@ spring:
       ddl-auto: update
     show-sql: true
 
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.demo.model
+
 jwt:
   signerKey: "wkOYQofdbeY47K+RDexD5KXjNcAdN0DjBRtDhOA8VeH4BD/2yZMlWg2y/mRvG4Wc"
   valid-duration: 1 # in hours

@@ -57,7 +57,7 @@ public class UserService {
     }
 
     //    @PreAuthorize("hasRole('ADMIN')") // Kiểm tra trước khi vào method.
-    @PreAuthorize("hasAuthority('APPROVE_POST')")
+//    @PreAuthorize("hasAuthority('APPROVE_POST')")
     public List<UserResponse> getUsers() {
         log.info("In method get users");
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();

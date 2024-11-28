@@ -2,6 +2,8 @@ package com.devteria.identity_service.controller;
 
 import java.util.List;
 
+import com.devteria.identity_service.mapper.UserMapper;
+import com.devteria.identity_service.mapper.UserMapperTest;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapperTest userMapper;
 
     @PostMapping
     ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {
@@ -35,7 +39,7 @@ public class UserController {
     ApiResponse<List<UserResponse>> getUsers() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         log.info("Username: {}", authentication.getName());
-
+        var xxx = userMapper.selectUser("aaf42847-86ef-49b2-99df-3f96d5f7042a");
         return ApiResponse.<List<UserResponse>>builder()
                 .result(userService.getUsers())
                 .build();
